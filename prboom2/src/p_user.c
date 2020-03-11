@@ -135,7 +135,7 @@ void P_CalcHeight (player_t* player)
     if ((player->mo->flags & MF_FLY) && !onground)
     {
       player->bob = FRACUNIT / 2;
-    }	
+    }
 
     if (mbf_features)
     {
@@ -156,7 +156,7 @@ void P_CalcHeight (player_t* player)
 
     //e6y
     if (!prboom_comp[PC_PRBOOM_FRICTION].state &&
-        compatibility_level >= boom_202_compatibility && 
+        compatibility_level >= boom_202_compatibility &&
         compatibility_level <= lxdoom_1_compatibility &&
         player->mo->friction > ORIG_FRICTION) // ice?
     {
@@ -306,7 +306,7 @@ void P_MovePlayer (player_t* player)
   // thrust applied to the movement varies with 'movefactor'.
 
   //e6y
-  if ((!demo_compatibility && !mbf_features && !prboom_comp[PC_PRBOOM_FRICTION].state) || 
+  if ((!demo_compatibility && !mbf_features && !prboom_comp[PC_PRBOOM_FRICTION].state) ||
     (cmd->forwardmove | cmd->sidemove)) // killough 10/98
     {
       if (onground || mo->flags & MF_BOUNCES || (mo->flags & MF_FLY)) // killough 8/9/98

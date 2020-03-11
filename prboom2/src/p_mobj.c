@@ -554,13 +554,13 @@ floater:
      *  demos would desync in close lost soul fights.
      * cph - revised 2001/04/15 -
      * This was a bug in the Doom/Doom 2 source; the following code
-     *  is meant to make charging lost souls bounce off of floors, but it 
+     *  is meant to make charging lost souls bounce off of floors, but it
      *  was incorrectly placed after momz was set to 0.
-     *  However, this bug was fixed in Doom95, Final/Ultimate Doom, and 
-     *  the v1.10 source release (which is one reason why it failed to sync 
+     *  However, this bug was fixed in Doom95, Final/Ultimate Doom, and
+     *  the v1.10 source release (which is one reason why it failed to sync
      *  some Doom2 v1.9 demos)
-     * I've added a comp_soul compatibility option to make this behavior 
-     *  selectable for PrBoom v2.3+. For older demos, we do this here only 
+     * I've added a comp_soul compatibility option to make this behavior
+     *  selectable for PrBoom v2.3+. For older demos, we do this here only
      *  if we're in a compatibility level above Doom 2 v1.9 (in which case we
      *  mimic the bug and do it further down instead)
      */
@@ -608,7 +608,7 @@ floater:
       }
     mo->z = mo->floorz;
 
-    /* cph 2001/04/15 - 
+    /* cph 2001/04/15 -
      * This is the buggy lost-soul bouncing code referenced above.
      * We've already set momz = 0 normally by this point, so it's useless.
      * However we might still have upward momentum, in which case this will
@@ -643,7 +643,7 @@ floater:
 
   if (mo->z + mo->height > mo->ceilingz)
     {
-    /* cph 2001/04/15 - 
+    /* cph 2001/04/15 -
      * Lost souls were meant to bounce off of ceilings;
      *  new comp_soul compatibility option added
      */
@@ -657,9 +657,9 @@ floater:
 
     mo->z = mo->ceilingz - mo->height;
 
-    /* cph 2001/04/15 - 
-     * We might have hit a ceiling but had downward momentum (e.g. ceiling is 
-     *  lowering on us), so for old demos we must still do the buggy 
+    /* cph 2001/04/15 -
+     * We might have hit a ceiling but had downward momentum (e.g. ceiling is
+     *  lowering on us), so for old demos we must still do the buggy
      *  momentum reversal here
      */
     if (comp[comp_soul] && mo->flags & MF_SKULLFLY)
@@ -858,7 +858,7 @@ void P_MobjThinker (mobj_t* mobj)
 
 // Certain functions assume that a mobj_t pointer is non-NULL,
 // causing a crash in some situations where it is NULL.  Vanilla
-// Doom did not crash because of the lack of proper memory 
+// Doom did not crash because of the lack of proper memory
 // protection. This function substitutes NULL pointers for
 // pointers to a dummy mobj, to avoid a crash.
 mobj_t *P_SubstNullMobj(mobj_t *mobj)
@@ -933,7 +933,7 @@ mobj_t* P_SpawnMobj(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 
   mobj->z = z == ONFLOORZ ? mobj->floorz : z == ONCEILINGZ ?
     mobj->ceilingz - mobj->height : z;
-  
+
   mobj->PrevX = mobj->x;
   mobj->PrevY = mobj->y;
   mobj->PrevZ = mobj->z;
@@ -1135,7 +1135,7 @@ void P_SpawnPlayer (int n, const mapthing_t* mthing)
   // http://www.doom2.net/doom2/research/runningbody.zip
   if (PlayeringameOverrun(mthing))
     return;
-                                                                
+
   // not playing?
 
   if (!playeringame[n])
@@ -1151,7 +1151,7 @@ void P_SpawnPlayer (int n, const mapthing_t* mthing)
    */
   if (!mthing->options)
     I_Error("P_SpawnPlayer: attempt to spawn player at unavailable start point");
-  
+
   x    = mthing->x << FRACBITS;
   y    = mthing->y << FRACBITS;
   z    = ONFLOORZ;
