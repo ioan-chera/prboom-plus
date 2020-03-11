@@ -219,6 +219,41 @@ void P_LineOpening(const line_t *linedef)
 //
 
 //
+// P_LogThingPosition
+//
+// haleyjd 04/15/2010: thing position logging for debugging demo problems.
+// Pass a NULL mobj to close the log.
+//
+//#define THING_LOGGING
+#ifdef THING_LOGGING
+void P_LogThingPosition(mobj_t *mo, const char *caller)
+{
+   static FILE *thinglog;
+
+   if(!thinglog)
+      thinglog = fopen("thinglog.txt", "wt");
+
+   if(!mo)
+   {
+      if(thinglog)
+         fclose(thinglog);
+      thinglog = NULL;
+      return;
+   }
+
+   if(thinglog)
+   {
+      fprintf(thinglog,
+              "%010d:%s::%+010d:(%g:%g:%g):(%g:%g:%g):%08x\n",
+              gametic, caller, (int)(mo->type), mo->x / 65536., mo->y / 65536., mo->z / 65536.,
+              mo->momx / 65536., mo->momy / 65536., mo->momz / 65536., mo->flags & 0x3fffffff);
+   }
+}
+#else
+#define P_LogThingPosition(a, b)
+#endif
+
+//
 // P_UnsetThingPosition
 // Unlinks a thing from block map and sectors.
 // On each position change, BLOCKMAP and other
@@ -228,6 +263,7 @@ void P_LineOpening(const line_t *linedef)
 
 void P_UnsetThingPosition (mobj_t *thing)
 {
+  P_LogThingPosition(thing, "unset");
   if (!(thing->flags & MF_NOSECTOR))
     {
       /* invisible things don't need to be in sector list
@@ -289,6 +325,7 @@ void P_UnsetThingPosition (mobj_t *thing)
 void P_SetThingPosition(mobj_t *thing)
 {                                                      // link into subsector
   subsector_t *ss = thing->subsector = R_PointInSubsector(thing->x, thing->y);
+  P_LogThingPosition(thing, " set ");
   if (!(thing->flags & MF_NOSECTOR))
     {
       // invisible things don't go into the sector links
