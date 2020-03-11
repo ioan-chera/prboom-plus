@@ -37,6 +37,13 @@
 
 #include "doomtype.h"
 
+//#define RANDOM_LOG
+#ifdef RANDOM_LOG
+void M_RandomLog(const char *format, ...);
+#else
+#define M_RandomLog(...)
+#endif
+
 // killough 1/19/98: rewritten to use to use a better random number generator
 // in the new engine, although the old one is available for compatibility.
 

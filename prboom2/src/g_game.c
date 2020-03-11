@@ -1531,6 +1531,8 @@ dboolean secretexit;
 
 void G_ExitLevel (void)
 {
+  if(players[0].mo)
+    M_RandomLog("Exit (pos %g %g ang %08x)\n", players[0].mo->x / 65536., players[0].mo->y / 65536., players[0].mo->angle);
   secretexit = false;
   gameaction = ga_completed;
 }

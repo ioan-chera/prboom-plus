@@ -909,8 +909,8 @@ mobj_t* P_SpawnMobj(fixed_t x,fixed_t y,fixed_t z,mobjtype_t type)
 
   if (gameskill != sk_nightmare)
     mobj->reactiontime = info->reactiontime;
-
   mobj->lastlook = P_Random (pr_lastlook) % MAXPLAYERS;
+  M_RandomLog("type=%d\n", type);
 
   // do not set the state with P_SetMobjState,
   // because action routines can not be called yet
@@ -1428,7 +1428,10 @@ spawnit:
   mobj->iden_nums = iden_num;
 
   if (mobj->tics > 0)
+  {
     mobj->tics = 1 + (P_Random (pr_spawnthing) % mobj->tics);
+    M_RandomLog("type=%d\n", mthing->type);
+  }
 
   if (!(mobj->flags & MF_FRIEND) &&
       options & MTF_FRIEND &&
