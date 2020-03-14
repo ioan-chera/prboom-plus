@@ -441,7 +441,7 @@ static dboolean P_SmartMove(mobj_t *actor)
 {
   mobj_t *target = actor->target;
   int on_lift, dropoff = false, under_damage;
-  int tmp_monster_avoid_hazards = (prboom_comp[PC_MONSTER_AVOID_HAZARDS].state ? 
+  int tmp_monster_avoid_hazards = (prboom_comp[PC_MONSTER_AVOID_HAZARDS].state ?
     true : (demo_compatibility ? false : monster_avoid_hazards));//e6y
 
   /* killough 9/12/98: Stay on a lift if target is on one */
@@ -1723,7 +1723,7 @@ void A_VileChase(mobj_t* actor)
 
 		  if (!((corpsehit->flags ^ MF_COUNTKILL) & (MF_FRIEND | MF_COUNTKILL)))
 		    totallive++;
-		  
+
                   corpsehit->health = info->spawnhealth;
       P_SetTarget(&corpsehit->target, NULL);  // killough 11/98
 
@@ -2281,7 +2281,7 @@ void A_BossDeath(mobj_t *mo)
   else
     {
       // e6y
-      // Additional check of gameepisode is necessary, because 
+      // Additional check of gameepisode is necessary, because
       // there is no right or wrong solution for E4M6 in original EXEs,
       // there's nothing to emulate.
       if (comp[comp_666] && gameepisode < 4)
@@ -2293,7 +2293,7 @@ void A_BossDeath(mobj_t *mo)
         // http://www.doomworld.com/idgames/index.php?id=6909
         if (gamemap != 8)
           return;
-        if (mo->type == MT_BRUISER && gameepisode != 1) 
+        if (mo->type == MT_BRUISER && gameepisode != 1)
           return;
       }
       else
@@ -2563,7 +2563,7 @@ void A_BrainSpit(mobj_t *mo)
 
   // spawn brain missile
   newmobj = P_SpawnMissile(mo, targ, MT_SPAWNSHOT);
-  
+
   // e6y: do not crash with 'incorrect' DEHs
   if (!newmobj || !newmobj->state || newmobj->momy == 0 || newmobj->state->tics == 0)
     I_Error("A_BrainSpit: can't spawn brain missile (incorrect DEH)");
@@ -2739,10 +2739,10 @@ void A_Spawn(mobj_t *mo)
 
   if (mo->state->misc1)
     {
-      mobj_t *newmobj = 
+      mobj_t *newmobj =
       P_SpawnMobj(mo->x, mo->y, (mo->state->misc2 << FRACBITS) + mo->z,
       mo->state->misc1 - 1);
-      if (compatibility_level == mbf_compatibility && 
+      if (compatibility_level == mbf_compatibility &&
           !prboom_comp[PC_DO_NOT_INHERIT_FRIENDLYNESS_FLAG_ON_SPAWN].state)
       /* CPhipps - no friendlyness (yet)*/ //e6y: why not?
    newmobj->flags = (newmobj->flags & ~MF_FRIEND) | (mo->flags & MF_FRIEND);
