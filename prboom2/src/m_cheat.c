@@ -32,6 +32,7 @@
  *-----------------------------------------------------------------------------*/
 
 #include "doomstat.h"
+#include "am_map.h"
 #include "g_game.h"
 #include "r_data.h"
 #include "p_inter.h"
@@ -91,6 +92,7 @@ static void cheat_megaarmour();
 static void cheat_health();
 static void cheat_notarget();
 static void cheat_fly();
+static void cheat_teleport();
 
 //-----------------------------------------------------------------------------
 //
@@ -185,6 +187,8 @@ cheatseq_t cheat[] = {
   CHEAT("notarget",   NULL,               cht_never, cheat_notarget, 0),
   // fly mode is active
   CHEAT("fly",        NULL,               cht_never, cheat_fly, 0),
+
+  CHEAT("tele", NULL, cht_never, cheat_teleport, 0),
   // end-of-list marker
   {NULL}
 };
@@ -639,6 +643,16 @@ static void cheat_fly()
       plyr->message = "Fly mode OFF";
     }
   }
+}
+
+static void cheat_teleport()
+{
+  if(!(automapmode & am_active))
+    return;
+  fixed_t x;
+  fixed_t y;
+  AM_Coordinates(plyr->mo, &x, &y);
+  P_TeleportMove(plyr->mo, x, y, false, false);
 }
 
 //-----------------------------------------------------------------------------

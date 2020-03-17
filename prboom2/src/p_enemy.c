@@ -2646,7 +2646,7 @@ void A_SpawnFly(mobj_t *mo)
     P_SetMobjState(newmobj, newmobj->info->seestate);
 
     // telefrag anything in this spot
-  P_TeleportMove(newmobj, newmobj->x, newmobj->y, true); /* killough 8/9/98 */
+  P_TeleportMove(newmobj, newmobj->x, newmobj->y, true, true); /* killough 8/9/98 */
 
   // remove self (i.e., cube).
   P_RemoveMobj(mo);

@@ -281,7 +281,7 @@ int P_GetMoveFactor(mobj_t *mo, int *frictionp)
 // P_TeleportMove
 //
 
-dboolean P_TeleportMove (mobj_t* thing,fixed_t x,fixed_t y, dboolean boss)
+dboolean P_TeleportMove (mobj_t* thing,fixed_t x,fixed_t y, dboolean boss, dboolean allowTelefrag)
 {
   int     xl;
   int     xh;
@@ -293,20 +293,23 @@ dboolean P_TeleportMove (mobj_t* thing,fixed_t x,fixed_t y, dboolean boss)
   subsector_t*  newsubsec;
 
   /* killough 8/9/98: make telefragging more consistent, preserve compatibility */
-  telefrag = thing->player ||
-    (!comp[comp_telefrag] ? boss : (gamemap==30));
+  telefrag = allowTelefrag && (thing->player ||
+    (!comp[comp_telefrag] ? boss : (gamemap==30)));
 
   // kill anything occupying the position
+  if(allowTelefrag)
+  {
+    tmthing = thing;
 
-  tmthing = thing;
+    tmx = x;
+    tmy = y;
 
-  tmx = x;
-  tmy = y;
 
-  tmbbox[BOXTOP] = y + tmthing->radius;
-  tmbbox[BOXBOTTOM] = y - tmthing->radius;
-  tmbbox[BOXRIGHT] = x + tmthing->radius;
-  tmbbox[BOXLEFT] = x - tmthing->radius;
+    tmbbox[BOXTOP] = y + tmthing->radius;
+    tmbbox[BOXBOTTOM] = y - tmthing->radius;
+    tmbbox[BOXRIGHT] = x + tmthing->radius;
+    tmbbox[BOXLEFT] = x - tmthing->radius;
+  }
 
   newsubsec = R_PointInSubsector (x,y);
   ceilingline = NULL;
@@ -319,20 +322,23 @@ dboolean P_TeleportMove (mobj_t* thing,fixed_t x,fixed_t y, dboolean boss)
   tmfloorz = tmdropoffz = newsubsec->sector->floorheight;
   tmceilingz = newsubsec->sector->ceilingheight;
 
-  validcount++;
-  numspechit = 0;
+  if(allowTelefrag)
+  {
+    validcount++;
+    numspechit = 0;
 
-  // stomp on any things contacted
+    // stomp on any things contacted
 
-  xl = P_GetSafeBlockX(tmbbox[BOXLEFT] - bmaporgx - MAXRADIUS);
-  xh = P_GetSafeBlockX(tmbbox[BOXRIGHT] - bmaporgx + MAXRADIUS);
-  yl = P_GetSafeBlockY(tmbbox[BOXBOTTOM] - bmaporgy - MAXRADIUS);
-  yh = P_GetSafeBlockY(tmbbox[BOXTOP] - bmaporgy + MAXRADIUS);
+    xl = P_GetSafeBlockX(tmbbox[BOXLEFT] - bmaporgx - MAXRADIUS);
+    xh = P_GetSafeBlockX(tmbbox[BOXRIGHT] - bmaporgx + MAXRADIUS);
+    yl = P_GetSafeBlockY(tmbbox[BOXBOTTOM] - bmaporgy - MAXRADIUS);
+    yh = P_GetSafeBlockY(tmbbox[BOXTOP] - bmaporgy + MAXRADIUS);
 
-  for (bx=xl ; bx<=xh ; bx++)
-    for (by=yl ; by<=yh ; by++)
-      if (!P_BlockThingsIterator(bx,by,PIT_StompThing))
-        return false;
+    for (bx=xl ; bx<=xh ; bx++)
+      for (by=yl ; by<=yh ; by++)
+        if (!P_BlockThingsIterator(bx,by,PIT_StompThing))
+          return false;
+  }
 
   // the move is ok,
   // so unlink from the old position & link into the new position

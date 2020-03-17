@@ -590,6 +590,23 @@ void AM_SetResolution(void)
 }
 
 //
+// Gets the coordinates at centre point
+//
+void AM_Coordinates(const mobj_t *mo, fixed_t *x, fixed_t *y)
+{
+  if(automapmode & am_follow)
+  {
+    *x = mo->x;
+    *y = mo->y;
+  }
+  else
+  {
+    *x = (m_x + m_w / 2) << FRACTOMAPBITS;
+    *y = (m_y + m_h / 2) << FRACTOMAPBITS;
+  }
+}
+
+//
 // AM_loadPics()
 //
 static void AM_loadPics(void)
