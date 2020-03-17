@@ -799,7 +799,7 @@ dboolean AM_Responder
     }
     else if (ch == key_map_mark)
     {
-      /* Ty 03/27/98 - *not* externalized     
+      /* Ty 03/27/98 - *not* externalized
        * cph 2001/11/20 - use doom_printf so we don't have our own buffer */
       doom_printf("%s %d", s_AMSTR_MARKEDSPOT, markpointnum);
       AM_addMark();
@@ -942,7 +942,7 @@ static void AM_changeWindowScale(void)
       ftom_zoommul = ((int) ((float)FRACUNIT * (1.00f + f_paninc / 200.0f)));
     }
   }
-  
+
   scale_mtof = FixedMul(scale_mtof, mtof_zoommul);
   scale_ftom = FixedDiv(FRACUNIT, scale_mtof);
 
@@ -1699,8 +1699,8 @@ static void AM_ProcessNiceThing(mobj_t* mobj, angle_t angle, fixed_t x, fixed_t 
     int rotate;
     unsigned char r, g, b;
   } map_nice_icon_param_t;
-  
-  static const map_nice_icon_param_t icons[] = 
+
+  static const map_nice_icon_param_t icons[] =
   {
     {SPR_STIM, am_icon_health, 12, 0, 100, 100, 200},
     {SPR_MEDI, am_icon_health, 16, 0, 100, 100, 200},
@@ -1880,7 +1880,7 @@ static void AM_DrawNiceThings(void)
       AM_ProcessNiceThing(t, angle, p.x, p.y);
     }
   }
-  
+
   // walls
   if (ddt_cheating == 2)
   {
@@ -2058,7 +2058,7 @@ static void AM_drawThings(void)
       //jff previously entire code
       AM_drawLineCharacter(thintriangle_guy, NUMTHINTRIANGLEGUYLINES,
         scale, angle,
-        t->flags & MF_FRIEND && !t->player ? mapcolor_frnd : 
+        t->flags & MF_FRIEND && !t->player ? mapcolor_frnd :
         /* cph 2006/07/30 - Show count-as-kills in red. */
         ((t->flags & (MF_COUNTKILL | MF_CORPSE)) == MF_COUNTKILL) ? mapcolor_enemy :
         /* bbm 2/28/03 Show countable items in yellow. */
@@ -2099,7 +2099,7 @@ static void AM_drawMarks(void)
     {
       int k, w;
       mpoint_t p;
-      
+
       p.x = markpoints[i].x;// - m_x + prev_m_x;
       p.y = markpoints[i].y;// - m_y + prev_m_y;
 
@@ -2116,7 +2116,7 @@ static void AM_drawMarks(void)
         p.fy = CYMTOF_F(p.fy) - (float)markpoints[i].h * SCREENHEIGHT / 200.0f / 2.0f;
       }
 
-      if (V_GetMode() == VID_MODEGL ? 
+      if (V_GetMode() == VID_MODEGL ?
           p.y < f_y + f_h && p.y + markpoints[i].h * SCREENHEIGHT / 200 >= f_y :
           p.y < f_y + f_h && p.y >= f_y)
       {
@@ -2305,7 +2305,7 @@ void AM_Drawer (void)
   AM_drawPlayers();
   AM_drawThings(); //jff 1/5/98 default double IDDT sprite
   AM_drawCrosshair(mapcolor_hair);   //jff 1/7/98 default crosshair color
-  
+
 #if defined(HAVE_LIBSDL2_IMAGE) && defined(GL_DOOM)
   if (V_GetMode() == VID_MODEGL)
   {
