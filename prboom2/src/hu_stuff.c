@@ -53,6 +53,7 @@
 #include "lprintf.h"
 #include "e6y.h" //e6y
 #include "g_overflow.h"
+#include "am_map.h"
 
 // global heads up display controls
 
@@ -2365,7 +2366,10 @@ void HU_Drawer(void)
       }
       else
       {
-        sprintf(hud_coordstrx,"X: %-5d", (plr->mo->x)>>FRACBITS);
+        fixed_t x;
+        fixed_t y;
+        AM_Coordinates(plr->mo, &x, &y);
+        sprintf(hud_coordstrx,"X: %-5d", x >> FRACBITS);
         HUlib_clearTextLine(&w_coordx);
         s = hud_coordstrx;
         while (*s)
@@ -2374,7 +2378,7 @@ void HU_Drawer(void)
 
         //jff 3/3/98 split coord display into x,y,z lines
         // y-coord
-        sprintf(hud_coordstry,"Y: %-5d", (plr->mo->y)>>FRACBITS);
+        sprintf(hud_coordstry,"Y: %-5d", y >> FRACBITS);
         HUlib_clearTextLine(&w_coordy);
         s = hud_coordstry;
         while (*s)
