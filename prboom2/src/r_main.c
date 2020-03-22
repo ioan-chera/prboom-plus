@@ -68,6 +68,8 @@ int LIGHTSEGSHIFT = 3;
 int LIGHTBRIGHT   = 2;
 int render_doom_lightmaps;
 
+int frameid;
+
 int r_frame_count;
 
 int r_have_internal_hires = false;
@@ -977,6 +979,8 @@ static void R_SetupFrame (player_t *player)
 
   viewtansin = FixedMul(FocalTangent, viewsin);
   viewtancos = FixedMul(FocalTangent, viewcos);
+
+  ++frameid;
 
   R_SetupFreelook();
 

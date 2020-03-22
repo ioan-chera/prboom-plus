@@ -131,6 +131,8 @@ extern int frame_fixedcolormap;
 extern int          extralight;
 extern const lighttable_t *fixedcolormap;
 
+extern int frameid;
+
 // Number of diminishing brightness levels.
 // There a 0-31, i.e. 32 LUT in the COLORMAP lump.
 
