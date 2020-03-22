@@ -139,7 +139,7 @@ static int	invhgtbits = 4;
 //   cases. These effects cannot be corrected without increasing the
 //   precision of various renderer variables, and, possibly, suffering
 //   a performance penalty.
-//   
+//
 
 void R_FixWiggle(sector_t *sec)
 {
@@ -681,7 +681,7 @@ void R_StoreWallRange(const int start, const int stop)
   dx1 = ((int_64_t)viewx - curline->v1->px) >> shift_bits;
   dy1 = ((int_64_t)viewy - curline->v1->py) >> shift_bits;
   len = curline->length >> shift_bits;
-  
+
   dist = (((dy * dx1 - dx * dy1) / len) << shift_bits);
   rw_distance = (fixed_t)BETWEEN(INT_MIN, INT_MAX, dist);
 
@@ -724,7 +724,7 @@ void R_StoreWallRange(const int start, const int stop)
 
   worldtop = frontsector->ceilingheight - viewz;
   worldbottom = frontsector->floorheight - viewz;
-  
+
   R_FixWiggle(frontsector);
 
   // calculate scale at both ends and step
@@ -920,7 +920,7 @@ void R_StoreWallRange(const int start, const int stop)
   ds_p->rw_offset = rw_offset;
   ds_p->rw_distance = rw_distance;
   ds_p->rw_centerangle = rw_centerangle;
-      
+
   // if a floor / ceiling plane is on the wrong side of the view
   // plane, it is definitely invisible and doesn't need to be marked.
 
@@ -978,9 +978,9 @@ void R_StoreWallRange(const int start, const int stop)
        * a possibility, otherwise the floor marking would overwrite the ceiling
        * marking, resulting in HOM. */
       if (markceiling && ceilingplane == floorplane)
-	floorplane = R_DupPlane (floorplane, rw_x, rw_stopx-1);
+	      floorplane = R_DupPlane (floorplane, rw_x, rw_stopx-1);
       else
-	floorplane = R_CheckPlane (floorplane, rw_x, rw_stopx-1);
+	      floorplane = R_CheckPlane (floorplane, rw_x, rw_stopx-1);
     else
       markfloor = 0;
   }
